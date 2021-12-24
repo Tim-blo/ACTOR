@@ -43,7 +43,7 @@ class NTU13(Dataset):
         for path in candi_list:
             data_org = joblib.load(path)
             try:
-                for value in cata_org.values():
+                for value in data_org.values():
                     # there should only be one value as the set was postprocessed
                     vibe_data = value
                     data_pose = vibe_data["pose"]
