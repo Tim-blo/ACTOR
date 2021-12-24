@@ -5,6 +5,7 @@ import numpy as np
 import joblib
 import codecs as cs
 import codecs
+import glob
 
 from .dataset import Dataset
 
@@ -17,7 +18,7 @@ action2motion_joints = [8, 1, 2, 3, 4, 5, 6, 7, 0, 9, 10, 11, 12, 13, 14, 21, 24
 class NTU13(Dataset):
     dataname = "ntu13"
 
-    def __init__(self, datapath="data/ntu13", **kwargs):
+    def __init__(self, datapath="data/ntu13/data-ntu13-smpl-postprocessed", **kwargs):
         self.datapath = datapath
         super().__init__(**kwargs)
         
@@ -26,11 +27,13 @@ class NTU13(Dataset):
         keep_actions = [6, 7, 8, 9, 22, 23, 24, 38, 80, 93, 99, 100, 102]
         self.num_classes = len(keep_actions)
                 
-        candi_list = []
-        candi_list_desc_name = os.path.join(datapath, motion_desc_file)
-        with cs.open(candi_list_desc_name, 'r', 'utf-8') as f:
-            for line in f.readlines():
-                candi_list.append(line.strip())
+#         candi_list = []
+#         candi_list_desc_name = os.path.join(datapath, motion_desc_file)
+#         with cs.open(candi_list_desc_name, 'r', 'utf-8') as f:
+#             for line in f.readlines():
+#                 candi_list.append(line.strip())
+
+        candi_list = glob.glob('data/ntu13/data-ntu13-smpl-postprocessed/*.pkl')
 
         self._joints3d = []
         self._poses = []
@@ -38,13 +41,15 @@ class NTU13(Dataset):
         self._actions = []
         
         for path in candi_list:
-            data_org = joblib.load(os.path.join(datapath, path))
+            data_org = joblib.load(path)
             try:
-                vibe_data = data_org[1]
-                data_pose = vibe_data["pose"]
-                # invert joint 0 and 8 already done in the definition of joints
-                data_j3d = vibe_data["joints3d"][:, action2motion_joints]
-                # initial pose at origin: on dataset.load()
+                for value in cata_org.values():
+                    # there should only be one value as the set was postprocessed
+                    vibe_data = value
+                    data_pose = vibe_data["pose"]
+                    # invert joint 0 and 8 already done in the definition of joints
+                    data_j3d = vibe_data["joints3d"][:, action2motion_joints]
+                    # initial pose at origin: on dataset.load()
             except KeyError:
                 continue
             action_id = int(path[path.index('A') + 1:-4])
