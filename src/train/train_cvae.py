@@ -1,6 +1,6 @@
 import os
 import torch
-from torch.utils.tensorboard import SummaryWriter
+from torch.utils.tensorboard.writer import SummaryWriter
 
 from torch.utils.data import DataLoader
 from src.train.trainer import train
