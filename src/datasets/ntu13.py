@@ -52,7 +52,7 @@ class NTU13(Dataset):
                     # initial pose at origin: on dataset.load()
             except KeyError:
                 continue
-            action_id = int(path[path.index('A') + 1:-4])
+            action_id = int(path[path.index('A') + 1:-8])
             
             self._poses.append(data_pose)
             self._joints3d.append(data_j3d)
