@@ -46,9 +46,11 @@ if __name__ == '__main__':
     # logging tensorboard
     writer = SummaryWriter(log_dir=parameters["folder"])
     
+    print("On est là")
+    
     model, datasets = get_model_and_data_checkpointed(parameters)
         
-
+    assert False
     # optimizer
     optimizer = torch.optim.AdamW(model.parameters(), lr=parameters["lr"])
 
