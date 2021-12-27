@@ -2,7 +2,7 @@ import os
 import torch
 
 from torch.utils.data import DataLoader
-from src.utils.trainer import train
+from src.train.trainer import train
 from src.utils.tensors import collate
 import src.utils.fixseed  # noqa
 
