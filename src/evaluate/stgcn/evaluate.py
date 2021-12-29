@@ -18,7 +18,7 @@ class Evaluation:
 
         model = model.to(parameters["device"])
 
-        modelpath = "models/actionrecognition/uestc_rot6d_stgcn.tar"
+        modelpath = "models/actionrecognition/compressed_ntu13_stgcn.tar"
 
         state_dict = torch.load(modelpath, map_location=parameters["device"])
         model.load_state_dict(state_dict)
