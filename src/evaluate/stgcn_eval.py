@@ -86,11 +86,11 @@ def evaluate(parameters, folder, checkpointname, epoch, niter):
     dataname = parameters["dataset"]
 
     # dummy => update parameters info
-    # get_datasets(parameters)
+    get_datasets(parameters)
     # faster: hardcode value for uestc
 
 #     parameters["num_classes"] = 40
-#     parameters["nfeats"] = 6
+     recogparamnfeats = parameters["nfeats"] = 6
 #     parameters["njoints"] = 25
 
     model = get_gen_model(parameters)
@@ -105,7 +105,7 @@ def evaluate(parameters, folder, checkpointname, epoch, niter):
 
     recogparameters = parameters.copy()
     recogparameters["pose_rep"] = "rot6d"
-    recogparameters["nfeats"] = 6
+    recogparameters["nfeats"] = recogparamnfeats
 
     # Action2motionEvaluation
     stgcnevaluation = STGCNEvaluation(dataname, recogparameters, device)
