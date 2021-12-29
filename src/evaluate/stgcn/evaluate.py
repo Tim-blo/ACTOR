@@ -115,7 +115,7 @@ class Evaluation:
             mkey = f"{metric}_{key}"
             metrics[mkey], _ = calculate_accuracy(model, loader,
                                                   self.num_classes,
-                                                  self.gru_classifier, self.device)
+                                                  self.model, self.device)
 
             # features for diversity
             print_logs("features", key)
