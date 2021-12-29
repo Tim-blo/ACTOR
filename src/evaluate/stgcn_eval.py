@@ -89,9 +89,9 @@ def evaluate(parameters, folder, checkpointname, epoch, niter):
     # get_datasets(parameters)
     # faster: hardcode value for uestc
 
-    parameters["num_classes"] = 40
-    parameters["nfeats"] = 6
-    parameters["njoints"] = 25
+#     parameters["num_classes"] = 40
+#     parameters["nfeats"] = 6
+#     parameters["njoints"] = 25
 
     model = get_gen_model(parameters)
 
