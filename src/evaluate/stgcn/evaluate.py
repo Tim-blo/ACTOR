@@ -109,7 +109,8 @@ class Evaluation:
         metrics = {}
         
         computedfeats = {}
-        for key, loader in loaders.items():
+        for key, loaderSets in loaders.items():
+            loader = loaderSets["test"]
             metric = "accuracy"
             print_logs(metric, key)
             mkey = f"{metric}_{key}"
