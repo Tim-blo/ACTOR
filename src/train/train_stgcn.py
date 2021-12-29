@@ -3,7 +3,7 @@ import torch
 from torch.utils.tensorboard import SummaryWriter
 from torch.utils.data import DataLoader
 
-from src.utils.trainer import train, test
+from src.train.trainer import train, test
 from src.utils.tensors import collate
 from src.utils.get_model_and_data import get_model_and_data
 
