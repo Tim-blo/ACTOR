@@ -114,7 +114,7 @@ def evaluate(parameters, folder, checkpointname, epoch, niter):
     # joints_metrics = {}
     # pose_metrics = {}
 
-    compute_gt_gt = False
+    compute_gt_gt = True
     if compute_gt_gt:
         datasetGT = {key: [get_datasets(parameters)[key],
                            get_datasets(parameters)[key]]
