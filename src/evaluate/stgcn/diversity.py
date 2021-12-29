@@ -1,18 +1,14 @@
 import torch
 import numpy as np
 
-
 # from action2motion
-def calculate_diversity_multimodality(activations, labels, num_labels, seed=None):
+def calculate_diversity_multimodality(activations, labels, num_labels):
     diversity_times = 200
     multimodality_times = 20
     labels = labels.long()
     num_motions = len(labels)
 
     diversity = 0
-
-    if seed is not None:
-        np.random.seed(seed)
         
     first_indices = np.random.randint(0, num_motions, diversity_times)
     second_indices = np.random.randint(0, num_motions, diversity_times)
