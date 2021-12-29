@@ -51,52 +51,94 @@ class Evaluation:
         sigma = np.cov(activations, rowvar=False)
         return mu, sigma
 
+#     def evaluate(self, model, loaders):
+#         def print_logs(metric, key):
+#             print(f"Computing stgcn {metric} on the {key} loader ...")
+
+#         metrics_all = {}
+#         for sets in ["train", "test"]:
+#             computedfeats = {}
+#             metrics = {}
+#             for key, loaderSets in loaders.items():
+#                 loader = loaderSets[sets]
+
+#                 metric = "accuracy"
+#                 print_logs(metric, key)
+#                 mkey = f"{metric}_{key}"
+#                 metrics[mkey], _ = calculate_accuracy(model, loader,
+#                                                       self.num_classes,
+#                                                       self.model, self.device)
+#                 # features for diversity
+#                 print_logs("features", key)
+#                 feats, labels = self.compute_features(model, loader)
+#                 print_logs("stats", key)
+#                 stats = self.calculate_activation_statistics(feats)
+
+#                 computedfeats[key] = {"feats": feats,
+#                                       "labels": labels,
+#                                       "stats": stats}
+
+#                 print_logs("diversity", key)
+#                 ret = calculate_diversity_multimodality(feats, labels, self.num_classes,
+#                                                         seed=self.seed)
+#                 metrics[f"diversity_{key}"], metrics[f"multimodality_{key}"] = ret
+
+#             # taking the stats of the ground truth and remove it from the computed feats
+#             gtstats = computedfeats["gt"]["stats"]
+#             # computing fid
+#             for key, loader in computedfeats.items():
+#                 metric = "fid"
+#                 mkey = f"{metric}_{key}"
+
+#                 stats = computedfeats[key]["stats"]
+#                 metrics[mkey] = float(calculate_fid(gtstats, stats))
+
+# #             metrics_all[sets] = metrics
+
+# #         metrics = {}
+# #         for sets in ["train", "test"]:
+# #             for key in metrics_all[sets]:
+# #                 metrics[f"{key}_{sets}"] = metrics_all[sets][key]
+#         return metrics
+
     def evaluate(self, model, loaders):
+        
         def print_logs(metric, key):
-            print(f"Computing stgcn {metric} on the {key} loader ...")
-
-        metrics_all = {}
-        for sets in ["train", "test"]:
-            computedfeats = {}
-            metrics = {}
-            for key, loaderSets in loaders.items():
-                loader = loaderSets[sets]
-
-                metric = "accuracy"
-                print_logs(metric, key)
-                mkey = f"{metric}_{key}"
-                metrics[mkey], _ = calculate_accuracy(model, loader,
-                                                      self.num_classes,
-                                                      self.model, self.device)
-                # features for diversity
-                print_logs("features", key)
-                feats, labels = self.compute_features(model, loader)
-                print_logs("stats", key)
-                stats = self.calculate_activation_statistics(feats)
-
-                computedfeats[key] = {"feats": feats,
-                                      "labels": labels,
-                                      "stats": stats}
-
-                print_logs("diversity", key)
-                ret = calculate_diversity_multimodality(feats, labels, self.num_classes,
-                                                        seed=self.seed)
-                metrics[f"diversity_{key}"], metrics[f"multimodality_{key}"] = ret
-
-            # taking the stats of the ground truth and remove it from the computed feats
-            gtstats = computedfeats["gt"]["stats"]
-            # computing fid
-            for key, loader in computedfeats.items():
-                metric = "fid"
-                mkey = f"{metric}_{key}"
-
-                stats = computedfeats[key]["stats"]
-                metrics[mkey] = float(calculate_fid(gtstats, stats))
-
-            metrics_all[sets] = metrics
-
+            print(f"Computing action2motion {metric} on the {key} loader ...")
+            
         metrics = {}
-        for sets in ["train", "test"]:
-            for key in metrics_all[sets]:
-                metrics[f"{key}_{sets}"] = metrics_all[sets][key]
+        
+        computedfeats = {}
+        for key, loader in loaders.items():
+            metric = "accuracy"
+            print_logs(metric, key)
+            mkey = f"{metric}_{key}"
+            metrics[mkey], _ = calculate_accuracy(model, loader,
+                                                  self.num_classes,
+                                                  self.gru_classifier, self.device)
+
+            # features for diversity
+            print_logs("features", key)
+            feats, labels = self.compute_features(model, loader)
+            print_logs("stats", key)
+            stats = self.calculate_activation_statistics(feats)
+            
+            computedfeats[key] = {"feats": feats,
+                                  "labels": labels,
+                                  "stats": stats}
+
+            print_logs("diversity", key)
+            ret = calculate_diversity_multimodality(feats, labels, self.num_classes)
+            metrics[f"diversity_{key}"], metrics[f"multimodality_{key}"] = ret
+            
+        # taking the stats of the ground truth and remove it from the computed feats
+        gtstats = computedfeats["gt"]["stats"]
+        # computing fid
+        for key, loader in computedfeats.items():
+            metric = "fid"
+            mkey = f"{metric}_{key}"
+            
+            stats = computedfeats[key]["stats"]
+            metrics[mkey] = float(calculate_fid(gtstats, stats))
+            
         return metrics
