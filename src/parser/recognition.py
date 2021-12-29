@@ -1,6 +1,6 @@
 import os
 
-from .base import argparse, add_misc_options, add_cuda_options, adding_cuda
+from .base import ArgumentParser, add_misc_options, add_cuda_options, adding_cuda
 from .tools import save_args
 from .dataset import add_dataset_options
 from .training import add_training_options
@@ -8,7 +8,7 @@ from .checkpoint import construct_checkpointname
 
 
 def training_parser():
-    parser = argparse.ArgumentParser()
+    parser = ArgumentParser()
     
     # misc options
     add_misc_options(parser)
