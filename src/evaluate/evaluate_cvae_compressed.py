@@ -1,5 +1,5 @@
 from src.parser.evaluation import parser
-from .stgcn_eval import evaluate
+from .stgcn_eval_compressed import evaluate
 
 
 def main():
