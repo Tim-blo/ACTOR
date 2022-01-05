@@ -18,7 +18,7 @@ action2motion_joints = [8, 1, 2, 3, 4, 5, 6, 7, 0, 9, 10, 11, 12, 13, 14, 21, 24
 class NTU13(Dataset):
     dataname = "ntu13"
 
-    def __init__(self, datapath="data/ntu13pare/pare-datareadytouse", **kwargs):
+    def __init__(self, datapath="data/ntu13pare/pare-data-readytouse", **kwargs):
         self.datapath = datapath
         super().__init__(**kwargs)
         
@@ -33,7 +33,7 @@ class NTU13(Dataset):
 #             for line in f.readlines():
 #                 candi_list.append(line.strip())
 
-        candi_list = glob.glob('data/ntu13pare/pare-datareadytouse/*.pkl')
+        candi_list = glob.glob('data/ntu13pare/pare-data-readytouse/*.pkl')
 
         self._joints3d = []
         self._poses = []
