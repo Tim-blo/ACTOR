@@ -291,7 +291,7 @@ class Dataset(torch.utils.data.Dataset):
         return f"{self.dataname} dataset: ({len(self)}, _, ..)"
 
     def update_parameters(self, parameters):
-        print(self[0])
+        print(self)
         self.njoints, self.nfeats, _ = self[0][0].shape
         parameters["num_classes"] = self.num_classes
         parameters["nfeats"] = self.nfeats
