@@ -33,7 +33,7 @@ class NTU13(Dataset):
 #             for line in f.readlines():
 #                 candi_list.append(line.strip())
 
-        candi_list = glob.glob('data/ntu13/data-ntu13-smpl-postprocessed/*.pkl')
+        candi_list = glob.glob('data/ntu13pare/pare-datareadytouse/*.pkl')
 
         self._joints3d = []
         self._poses = []
