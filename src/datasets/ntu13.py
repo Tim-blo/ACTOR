@@ -18,7 +18,7 @@ action2motion_joints = [8, 1, 2, 3, 4, 5, 6, 7, 0, 9, 10, 11, 12, 13, 14, 21, 24
 class NTU13(Dataset):
     dataname = "ntu13"
 
-    def __init__(self, datapath="data/ntu13/data-ntu13-smpl-postprocessed", **kwargs):
+    def __init__(self, datapath="data/ntu13pare/pare-datareadytouse", **kwargs):
         self.datapath = datapath
         super().__init__(**kwargs)
         
