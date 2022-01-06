@@ -28,5 +28,4 @@ def get_datasets(parameters):
 
     # add specific parameters from the dataset loading
     dataset.update_parameters(parameters)
-    assert False
     return datasets
