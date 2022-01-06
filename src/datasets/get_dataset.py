@@ -2,6 +2,9 @@ def get_dataset(name="ntu13"):
     if name == "ntu13":
         from .ntu13 import NTU13
         return NTU13
+    elif name == "ntu13pare":
+        from .ntu13pare import NTU13
+        return NTU13
     elif name == "uestc":
         from .uestc import UESTC
         return UESTC
