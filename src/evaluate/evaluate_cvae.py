@@ -7,6 +7,7 @@ def main():
     dataset = parameters["dataset"]
     print(dataset)
     if dataset in ["ntu13pare", "ntu13", "humanact12"]:
+        print('we made it')
         from .gru_eval import evaluate
         evaluate(parameters, folder, checkpointname, epoch, niter)
     elif dataset in ["uestc"]:
