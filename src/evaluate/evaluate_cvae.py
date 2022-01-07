@@ -6,15 +6,15 @@ def main():
 
     dataset = parameters["dataset"]
     print(dataset)
-    if dataset in ["ntu13pare", "ntu13", "humanact12"]:
-        print('we made it')
-        from .gru_eval import evaluate
-        evaluate(parameters, folder, checkpointname, epoch, niter)
-    elif dataset in ["uestc"]:
-        from .stgcn_eval import evaluate
-        evaluate(parameters, folder, checkpointname, epoch, niter)
-    else:
-        raise NotImplementedError("This dataset is not supported.")
+#     if dataset in ["ntu13pare", "ntu13", "humanact12"]:
+#         print('we made it')
+    from .gru_eval import evaluate
+    evaluate(parameters, folder, checkpointname, epoch, niter)
+#     elif dataset in ["uestc"]:
+#         from .stgcn_eval import evaluate
+#         evaluate(parameters, folder, checkpointname, epoch, niter)
+#     else:
+#         raise NotImplementedError("This dataset is not supported.")
 
 
 if __name__ == '__main__':
