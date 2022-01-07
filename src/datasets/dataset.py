@@ -113,7 +113,7 @@ class Dataset(torch.utils.data.Dataset):
                 raise ValueError("This representation is not possible.")
             else:
                 pose = self._load_rotvec(ind, frame_ix)
-                print(pose.shape)
+#                 print(pose.shape)
                 if not self.glob:
                     pose = pose[:, 1:, :]
                 pose = to_torch(pose)
@@ -130,11 +130,11 @@ class Dataset(torch.utils.data.Dataset):
         if pose_rep != "xyz" and self.translation:
             padded_tr = torch.zeros((ret.shape[0], ret.shape[2]), dtype=ret.dtype)
             ##
-            print(padded_tr.shape)
-            print(ret_tr.shape)
-            print(ret.shape)
+#             print(padded_tr.shape)
+#             print(ret_tr.shape)
+#             print(ret.shape)
             ##
-            assert False
+#             assert False
             padded_tr[:, :3] = ret_tr
             ret = torch.cat((ret, padded_tr[:, None]), 1)
         ret = ret.permute(1, 2, 0).contiguous()
