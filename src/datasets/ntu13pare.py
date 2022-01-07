@@ -77,7 +77,8 @@ class NTU13(Dataset):
         return joints3D
         
     def _load_rotvec(self, ind, frame_ix):
-        pose = self._poses[ind][frame_ix, :].reshape(-1, 24, 3)
+        # pose = self._poses[ind][frame_ix, :].reshape(-1, 24, 3)
+        pose = self._poses[ind][frame_ix, :]
         return pose
 
 
