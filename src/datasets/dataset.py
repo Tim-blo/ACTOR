@@ -113,6 +113,7 @@ class Dataset(torch.utils.data.Dataset):
                 raise ValueError("This representation is not possible.")
             else:
                 pose = self._load_rotvec(ind, frame_ix)
+                print(pose.shape)
                 if not self.glob:
                     pose = pose[:, 1:, :]
                 pose = to_torch(pose)
