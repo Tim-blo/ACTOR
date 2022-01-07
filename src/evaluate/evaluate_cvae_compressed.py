@@ -6,7 +6,7 @@ def main():
     parameters, folder, checkpointname, epoch, niter = parser()
     dataset = parameters["dataset"]
     print(dataset)
-    if dataset in ["ntu13", "humanact12"]:
+    if dataset in ["ntu13pare", "ntu13", "humanact12"]:
         evaluate(parameters, folder, checkpointname, epoch, niter)
     else:
         raise NotImplementedError("This dataset is not supported.")
