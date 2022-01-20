@@ -52,7 +52,7 @@ def evaluate(parameters, folder, checkpointname, epoch, niter):
 
     # fix parameters for action2motion evaluation
     parameters["num_frames"] = num_frames
-    if parameters["dataset"] == "ntu13":
+    if parameters["dataset"] == "ntu13" or parameters["dataset"] == "ntu13pare":
         parameters["jointstype"] = "a2m"
         parameters["vertstrans"] = False  # No "real" translation in this dataset
     elif parameters["dataset"] == "humanact12":
