@@ -13,7 +13,11 @@ class A2MEvaluation:
                                  "num_classes": 13},
                        'humanact12': {"input_size_raw": 72,
                                       "joints_num": 24,
-                                      "num_classes": 12}}
+                                      "num_classes": 12},
+                       "ntu13pare": {"joints_num": 18,
+                                 "input_size_raw": 54,
+                                 "num_classes": 13},
+                      }
         
         if dataname != dataset_opt.keys():
             assert NotImplementedError(f"{dataname} is not supported.")
