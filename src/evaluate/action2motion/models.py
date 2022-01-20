@@ -64,6 +64,7 @@ class MotionDiscriminatorForFID(MotionDiscriminator):
 classifier_model_files = {
     "ntu13": "models/actionrecognition/ntu13_gru.tar",
     "humanact12": "models/actionrecognition/humanact12_gru.tar",
+    "ntu13pare": "models/actionrecognition/ntu13_gru.tar",
 }
 
 
