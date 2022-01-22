@@ -18,8 +18,8 @@ class Evaluation:
 
         model = model.to(parameters["device"])
 
-        modelpath = "models/actionrecognition/ntu13_gru.tar"
-        # modelpath = "pare_recognition_training/ntu13_gru.tar"
+        # modelpath = "models/actionrecognition/ntu13_gru.tar"
+        modelpath = "pare_recognition_training/ntu13_gru.tar"
         
         state_dict = torch.load(modelpath, map_location=parameters["device"])
         model.load_state_dict(state_dict)
