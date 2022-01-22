@@ -116,7 +116,6 @@ class Dataset(torch.utils.data.Dataset):
                 if not self.glob:
                     pose = pose[:, 1:, :]
                 pose = to_torch(pose)
-                print(pose.shape)
                 if pose_rep == "rotvec":
                     ret = pose
                 elif pose_rep == "rotmat":
@@ -128,8 +127,6 @@ class Dataset(torch.utils.data.Dataset):
         if pose_rep != "xyz" and self.translation:
             padded_tr = torch.zeros((ret.shape[0], ret.shape[2]), dtype=ret.dtype)
             padded_tr[:, :3] = ret_tr
-            print(ret.shape)
-            print(padded_tr.shape)
             ret = torch.cat((ret, padded_tr[:, None]), 1)
         ret = ret.permute(1, 2, 0).contiguous()
         return ret.float()
