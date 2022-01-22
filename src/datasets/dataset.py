@@ -116,6 +116,7 @@ class Dataset(torch.utils.data.Dataset):
                 if not self.glob:
                     pose = pose[:, 1:, :]
                 pose = to_torch(pose)
+                print(pose.shape)
                 if pose_rep == "rotvec":
                     ret = pose
                 elif pose_rep == "rotmat":
