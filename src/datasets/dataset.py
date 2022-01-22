@@ -133,7 +133,7 @@ class Dataset(torch.utils.data.Dataset):
             print(ret_tr.shape)
             print(ret.shape)
             #
-            assert False
+            # assert False
             padded_tr = torch.zeros((ret.shape[0], ret.shape[2]), dtype=ret.dtype)
             padded_tr[:, :3] = ret_tr
             ret = torch.cat((ret, padded_tr[:, None]), 1)
