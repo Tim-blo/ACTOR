@@ -90,47 +90,6 @@ class Dataset(torch.utils.data.Dataset):
         inp, target = self._get_item_data_index(data_index)
         return inp, target
 
-#     def _load(self, ind, frame_ix):
-#         pose_rep = self.pose_rep
-#         if pose_rep == "xyz" or self.translation:
-#             if getattr(self, "_load_joints3D", None) is not None:
-#                 # Locate the root joint of initial pose at origin
-#                 joints3D = self._load_joints3D(ind, frame_ix)
-#                 joints3D = joints3D - joints3D[0, 0, :]
-#                 ret = to_torch(joints3D)
-#                 if self.translation:
-#                     ret_tr = ret[:, 0, :]
-#             else:
-#                 if pose_rep == "xyz":
-#                     raise ValueError("This representation is not possible.")
-#                 if getattr(self, "_load_translation") is None:
-#                     raise ValueError("Can't extract translations.")
-#                 ret_tr = self._load_translation(ind, frame_ix)
-#                 ret_tr = to_torch(ret_tr - ret_tr[0])
-
-#         if pose_rep != "xyz":
-#             if getattr(self, "_load_rotvec", None) is None:
-#                 raise ValueError("This representation is not possible.")
-#             else:
-#                 pose = self._load_rotvec(ind, frame_ix)
-#                 if not self.glob:
-#                     pose = pose[:, 1:, :]
-#                 pose = to_torch(pose)
-#                 if pose_rep == "rotvec":
-#                     ret = pose
-#                 elif pose_rep == "rotmat":
-#                     ret = geometry.axis_angle_to_matrix(pose).view(*pose.shape[:2], 9)
-#                 elif pose_rep == "rotquat":
-#                     ret = geometry.axis_angle_to_quaternion(pose)
-#                 elif pose_rep == "rot6d":
-#                     ret = geometry.matrix_to_rotation_6d(geometry.axis_angle_to_matrix(pose))
-#         if pose_rep != "xyz" and self.translation:
-#             padded_tr = torch.zeros((ret.shape[0], ret.shape[2]), dtype=ret.dtype)
-#             padded_tr[:, :3] = ret_tr
-#             ret = torch.cat((ret, padded_tr[:, None]), 1)
-#         ret = ret.permute(1, 2, 0).contiguous()
-#         return ret.float()
-    
     def _load(self, ind, frame_ix):
         pose_rep = self.pose_rep
         if pose_rep == "xyz" or self.translation:
@@ -154,7 +113,6 @@ class Dataset(torch.utils.data.Dataset):
                 raise ValueError("This representation is not possible.")
             else:
                 pose = self._load_rotvec(ind, frame_ix)
-#                 print(pose.shape)
                 if not self.glob:
                     pose = pose[:, 1:, :]
                 pose = to_torch(pose)
@@ -165,21 +123,63 @@ class Dataset(torch.utils.data.Dataset):
                 elif pose_rep == "rotquat":
                     ret = geometry.axis_angle_to_quaternion(pose)
                 elif pose_rep == "rot6d":
-                    # ret = geometry.matrix_to_rotation_6d(geometry.axis_angle_to_matrix(pose))
-                    ret = geometry.matrix_to_rotation_6d(pose)
-
+                    ret = geometry.matrix_to_rotation_6d(geometry.axis_angle_to_matrix(pose))
         if pose_rep != "xyz" and self.translation:
-            #
-            # print(padded_tr.shape)
-#             print(ret_tr.shape)
-#             print(ret.shape)
-            #
-            # assert False
             padded_tr = torch.zeros((ret.shape[0], ret.shape[2]), dtype=ret.dtype)
             padded_tr[:, :3] = ret_tr
             ret = torch.cat((ret, padded_tr[:, None]), 1)
         ret = ret.permute(1, 2, 0).contiguous()
         return ret.float()
+    
+#     def _load(self, ind, frame_ix):
+#         pose_rep = self.pose_rep
+#         if pose_rep == "xyz" or self.translation:
+#             if getattr(self, "_load_joints3D", None) is not None:
+#                 # Locate the root joint of initial pose at origin
+#                 joints3D = self._load_joints3D(ind, frame_ix)
+#                 joints3D = joints3D - joints3D[0, 0, :]
+#                 ret = to_torch(joints3D)
+#                 if self.translation:
+#                     ret_tr = ret[:, 0, :]
+#             else:
+#                 if pose_rep == "xyz":
+#                     raise ValueError("This representation is not possible.")
+#                 if getattr(self, "_load_translation") is None:
+#                     raise ValueError("Can't extract translations.")
+#                 ret_tr = self._load_translation(ind, frame_ix)
+#                 ret_tr = to_torch(ret_tr - ret_tr[0])
+
+#         if pose_rep != "xyz":
+#             if getattr(self, "_load_rotvec", None) is None:
+#                 raise ValueError("This representation is not possible.")
+#             else:
+#                 pose = self._load_rotvec(ind, frame_ix)
+# #                 print(pose.shape)
+#                 if not self.glob:
+#                     pose = pose[:, 1:, :]
+#                 pose = to_torch(pose)
+#                 if pose_rep == "rotvec":
+#                     ret = pose
+#                 elif pose_rep == "rotmat":
+#                     ret = geometry.axis_angle_to_matrix(pose).view(*pose.shape[:2], 9)
+#                 elif pose_rep == "rotquat":
+#                     ret = geometry.axis_angle_to_quaternion(pose)
+#                 elif pose_rep == "rot6d":
+#                     # ret = geometry.matrix_to_rotation_6d(geometry.axis_angle_to_matrix(pose))
+#                     ret = geometry.matrix_to_rotation_6d(pose)
+
+#         if pose_rep != "xyz" and self.translation:
+#             #
+#             # print(padded_tr.shape)
+# #             print(ret_tr.shape)
+# #             print(ret.shape)
+#             #
+#             # assert False
+#             padded_tr = torch.zeros((ret.shape[0], ret.shape[2]), dtype=ret.dtype)
+#             padded_tr[:, :3] = ret_tr
+#             ret = torch.cat((ret, padded_tr[:, None]), 1)
+#         ret = ret.permute(1, 2, 0).contiguous()
+#         return ret.float()
 
     def _get_item_data_index(self, data_index):
         nframes = self._num_frames_in_video[data_index]
