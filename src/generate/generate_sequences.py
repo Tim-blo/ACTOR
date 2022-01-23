@@ -136,7 +136,7 @@ def main():
     for seed in [1]:  # [0, 1, 2]:
         fixseed(seed)
         # visualize_params
-        onlygen = True
+        onlygen = False # CHANGED THAT
         vertstrans = False
         inter = True and onlygen
         varying_beta = False
