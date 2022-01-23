@@ -66,18 +66,18 @@ def main():
     background = np.zeros((height, width, 3))
     renderer = get_renderer(width, height)
 
-    # if duration mode, put back durations
-    if output["generation_3"].shape[-1] == 100:
-        output["generation_0"] = output["generation_0"][:, :, :, :40]
-        output["generation_1"] = output["generation_1"][:, :, :, :60]
-        output["generation_2"] = output["generation_2"][:, :, :, :80]
-        output["generation_3"] = output["generation_3"][:, :, :, :100]
-    elif output["generation_3"].shape[-1] == 160:
-        print("160 mode")
-        output["generation_0"] = output["generation_0"][:, :, :, :100]
-        output["generation_1"] = output["generation_1"][:, :, :, :120]
-        output["generation_2"] = output["generation_2"][:, :, :, :140]
-        output["generation_3"] = output["generation_3"][:, :, :, :160]
+#     # if duration mode, put back durations
+#     if output["generation_3"].shape[-1] == 100:
+#         output["generation_0"] = output["generation_0"][:, :, :, :40]
+#         output["generation_1"] = output["generation_1"][:, :, :, :60]
+#         output["generation_2"] = output["generation_2"][:, :, :, :80]
+#         output["generation_3"] = output["generation_3"][:, :, :, :100]
+#     elif output["generation_3"].shape[-1] == 160:
+#         print("160 mode")
+#         output["generation_0"] = output["generation_0"][:, :, :, :100]
+#         output["generation_1"] = output["generation_1"][:, :, :, :120]
+#         output["generation_2"] = output["generation_2"][:, :, :, :140]
+#         output["generation_3"] = output["generation_3"][:, :, :, :160]
 
     # if str(action) == str(1) and str(key) == "generation_4":
     for key in output:
