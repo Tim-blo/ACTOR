@@ -165,8 +165,8 @@ class Dataset(torch.utils.data.Dataset):
                 elif pose_rep == "rotquat":
                     ret = geometry.axis_angle_to_quaternion(pose)
                 elif pose_rep == "rot6d":
-                    ret = geometry.matrix_to_rotation_6d(geometry.axis_angle_to_matrix(pose))
-                    # ret = geometry.matrix_to_rotation_6d(pose)
+                    # ret = geometry.matrix_to_rotation_6d(geometry.axis_angle_to_matrix(pose))
+                    ret = geometry.matrix_to_rotation_6d(pose)
 
         if pose_rep != "xyz" and self.translation:
             #
